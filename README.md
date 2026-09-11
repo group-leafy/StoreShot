@@ -1,42 +1,52 @@
-# StoreShot
+# StoreShot · App Store 商店图生成器
 
-This template should help get you started developing with Vue 3 in Vite.
+一款极简、高效率的**纯前端**网页工具，用于快速生成符合 Apple App Store 规格的商店宣传图。
 
-## Recommended IDE Setup
+**零配置成本、固定排版布局**：选布局 → 填文字 → 传图片 → 出图。无需像 Figma 一样自由拖拽调整，开箱即用。
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 功能特性
 
-## Recommended Browser Setup
+- **两种设备规格**（App Store 原生导出分辨率）
+  - iPhone 6.7 寸：`1290 × 2796` px（竖屏）
+  - iPad 12.9 寸：竖屏 `2048 × 2732` / 横屏 `2732 × 2048` px，**每张卡片上可随时切换横/竖方向**，新建页面沿用上一页方向
+- **固定排版模板**（文字位置 × 完整/溢出）
+  - 横屏页面：文字可排 **上 / 下 / 左 / 右**，各含「图片完整显示」与「图片溢出裁切」两种，外加纯图模式，共 9 种
+  - 竖屏页面（含 iPhone）：文字仅 **上 / 下**，共 5 种；横屏页切回竖屏时，左/右排版自动映射为上/下
+- **文字**：标题内容、颜色、字号（大/中/小 + 微调滑块）、字体（无衬线/圆体/衬线），强制水平居中
+- **伪真机边框**：纯黑 / 纯白 / 无边框，带适度圆角与细边线，伪装现代设备
+- **背景**：8 组预设渐变 + 自定义渐变（双色 + 角度）+ 纯色
+- **页面管理**：新增、复制、删除、拖拽排序
+- **单张导出**：每页一键导出严格符合设备原生分辨率的 PNG
+- **隐私安全**：所有处理均在浏览器本地完成，不上传任何图片
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## 技术栈
 
-## Type Support for `.vue` Imports in TS
+Vue 3 + TypeScript + Pinia + Vue Router + Vite，导出使用 [html-to-image](https://github.com/bubkoo/html-to-image)。
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## 开发
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
 pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 pnpm dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## 构建
 
-```sh
-pnpm build
+```bash
+pnpm build        # 类型检查 + 产物构建
+pnpm build-only   # 仅构建（不做类型检查）
+pnpm preview      # 本地预览构建产物
+```
+
+## 部署到 GitHub Pages
+
+产物为纯静态网页，路由使用 hash 模式、资源使用相对路径，可直接部署到任意静态目录（包括仓库子路径）。
+
+方式一（推荐，自动部署）：仓库已内置 `.github/workflows/deploy.yml`，推送到 `master` 即自动构建发布。需在仓库 **Settings → Pages** 中将 Source 设置为 **GitHub Actions**。
+
+方式二（手动）：
+
+```bash
+pnpm build-only
+# 将 dist/ 目录推送到 gh-pages 分支或任意静态托管
 ```
