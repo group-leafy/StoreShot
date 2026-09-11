@@ -5,13 +5,13 @@ import type { DeviceSpec, PageConfig } from '@/types'
 export interface PageLayout {
   /** 文字区（纯图模式无文字区） */
   text: { x: number; y: number; w: number; h: number } | null
-  /** 截图外框（含边框内边距）位置与尺寸 */
+  /** 截图外框（边框自截图四边向外扩张）位置与尺寸 */
   shot: { x: number; y: number; w: number; h: number }
   /** 截图本体（不含边框）位置与尺寸 */
   inner: { x: number; y: number; w: number; h: number }
   /** 图片展示区域（用于占位上传提示） */
   region: { x: number; y: number; w: number; h: number }
-  /** 边框内边距 */
+  /** 边框厚度（向外扩张，不侵入截图内容） */
   pad: number
   /** 外框圆角 */
   radius: number
@@ -98,6 +98,8 @@ export function computeLayout(page: PageConfig, device: DeviceSpec): PageLayout 
   const img = page.image
   const ratio = img && img.height > 0 ? img.width / img.height : W / H // 无图时按画布比例占位
 
+  // 以下 outer* 为「截图本体」几何：直接按 contain / 溢出规则落位，
+  // 边框不挤占图片内容，而是从该盒四边向外扩张（见末尾 shot 计算）
   let outerW: number
   let outerH: number
   let outerX: number
@@ -144,8 +146,14 @@ export function computeLayout(page: PageConfig, device: DeviceSpec): PageLayout 
   }
 
   const round = (n: number) => Math.round(n * 100) / 100
-  const shot = { x: round(outerX), y: round(outerY), w: round(outerW), h: round(outerH) }
-  const inner = { x: shot.x + pad, y: shot.y + pad, w: shot.w - pad * 2, h: shot.h - pad * 2 }
+  // 截图本体直接落位；外框四边向外扩 pad，图片内容不被边框吃掉
+  const inner = { x: round(outerX), y: round(outerY), w: round(outerW), h: round(outerH) }
+  const shot = {
+    x: round(outerX - pad),
+    y: round(outerY - pad),
+    w: round(outerW + pad * 2),
+    h: round(outerH + pad * 2),
+  }
 
   return { text, shot, inner, region, pad, radius, innerRadius }
 }

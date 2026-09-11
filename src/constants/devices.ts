@@ -13,7 +13,7 @@ export const DEVICES: Record<DeviceId, DeviceSpec> = {
     orientation: 'portrait',
     width: 1290,
     height: 2796,
-    framePadRatio: 0.035, // ≈ 45px 边框厚度，接近真机屏幕黑边比例
+    framePadRatio: 0.025, // ≈ 32px 边框厚度，接近真机屏幕黑边比例
     frameRadiusRatio: 0.09, // ≈ 116px 圆角，接近现代 iPhone
     bareRadiusRatio: 0.045, // 无边框时截图自身圆角
     titleSizeRatio: 0.052, // ≈ 67px 基准字号
