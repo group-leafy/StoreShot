@@ -5,12 +5,11 @@ import type { DeviceId, DeviceSpec, Orientation } from '@/types'
  * 导出尺寸严格遵循 App Store 原生要求：
  * - iPhone 6.7 寸：1290 × 2796
  * - iPad 12.9 寸：竖屏 2048 × 2732 / 横屏 2732 × 2048（由 store 按方向解析）
+ * 展示名/副标题文案见 locales 的 devices.* 命名空间。
  */
 export const DEVICES: Record<DeviceId, DeviceSpec> = {
   'iphone-67': {
     id: 'iphone-67',
-    label: 'iPhone 6.7 寸',
-    desc: '1290 × 2796 像素 · 9:19.5',
     orientation: 'portrait',
     width: 1290,
     height: 2796,
@@ -22,8 +21,6 @@ export const DEVICES: Record<DeviceId, DeviceSpec> = {
   },
   'ipad-129': {
     id: 'ipad-129',
-    label: 'iPad 12.9 寸',
-    desc: '竖屏 2048 × 2732 · 横屏 2732 × 2048',
     orientation: 'portrait',
     width: 2048,
     height: 2732,

@@ -1,6 +1,8 @@
 /* ============ 设计令牌 ============ */
 :root {
+  color-scheme: light;
   --bg: #f3f4f6;
+  --bg-inset: #f3f4f6;
   --panel: #ffffff;
   --border: #e5e7eb;
   --border-strong: #d1d5db;
@@ -12,12 +14,39 @@
   --accent-soft: #eef2ff;
   --danger: #dc2626;
   --danger-soft: #fef2f2;
+  --danger-border: #fecaca;
+  --hover: #f9fafb;
+  --glyph-bg: #eef2ff;
+  --glyph-border: #dbe1f5;
   --radius: 12px;
   --radius-sm: 8px;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 16px rgba(0, 0, 0, 0.06);
   --font-ui:
     -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', 'Segoe UI', sans-serif;
+}
+
+/* ============ 深色模式 ============ */
+html.dark {
+  color-scheme: dark;
+  --bg: #0f1115;
+  --bg-inset: #27272a;
+  --panel: #18181b;
+  --border: #27272a;
+  --border-strong: #3f3f46;
+  --text: #f4f4f5;
+  --text-2: #a1a1aa;
+  --text-3: #71717a;
+  --accent: #818cf8;
+  --accent-strong: #a5b4fc;
+  --accent-soft: rgba(99, 102, 241, 0.18);
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.12);
+  --danger-border: #7f1d1d;
+  --hover: #222226;
+  --glyph-bg: #26264a;
+  --glyph-border: #3a3a68;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.45), 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 * {
@@ -37,6 +66,7 @@ body {
   font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  transition: background 0.15s, color 0.15s;
 }
 
 #app {
@@ -62,7 +92,7 @@ body {
 }
 
 .btn:hover:not(:disabled) {
-  background: #f9fafb;
+  background: var(--hover);
   border-color: var(--border-strong);
 }
 
@@ -101,7 +131,7 @@ body {
 .btn-icon.danger:hover:not(:disabled) {
   color: var(--danger);
   background: var(--danger-soft);
-  border-color: #fecaca;
+  border-color: var(--danger-border);
 }
 
 /* ============ 表单控件 ============ */
@@ -148,7 +178,7 @@ input[type='color'] {
 /* ============ 分段选择器 ============ */
 .seg {
   display: flex;
-  background: #f3f4f6;
+  background: var(--bg-inset);
   border-radius: var(--radius-sm);
   padding: 2px;
   gap: 2px;

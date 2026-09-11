@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { FONTS } from '@/constants/presets'
 import { parseTemplate } from '@/constants/templates'
 import { computeLayout } from '@/utils/layout'
 import { loadImageFile } from '@/utils/image'
 import type { DeviceSpec, PageConfig, ScreenshotImage } from '@/types'
+
+const { t } = useI18n()
 
 const props = withDefaults(
   defineProps<{
@@ -260,7 +263,7 @@ defineExpose({ pageEl })
             <path d="M14.5 13.5l2-2a1.5 1.5 0 0 1 2.1 0L21 14" />
             <circle cx="15.5" cy="9" r="1" fill="currentColor" stroke="none" />
           </svg>
-          <span>点击或拖入 App 截图</span>
+          <span>{{ t('canvas.uploadPlaceholder') }}</span>
         </div>
       </div>
     </div>

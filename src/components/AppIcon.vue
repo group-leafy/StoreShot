@@ -10,6 +10,10 @@ export type IconName =
   | 'grip'
   | 'spinner'
   | 'undo'
+  | 'sun'
+  | 'moon'
+  | 'monitor'
+  | 'globe'
 
 const PATHS: Record<IconName, string> = {
   trash: 'M4 7h16 M10 11v6 M14 11v6 M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12 M9 7V5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 5v2',
@@ -22,6 +26,10 @@ const PATHS: Record<IconName, string> = {
   grip: 'M9 5.5h.01 M9 12h.01 M9 18.5h.01 M15 5.5h.01 M15 12h.01 M15 18.5h.01',
   spinner: 'M12 3a9 9 0 1 0 9 9',
   undo: 'M4 10h11a5 5 0 0 1 0 10h-3 M4 10l4-4 M4 10l4 4',
+  sun: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z M12 2.5v2 M12 19.5v2 M4.9 4.9l1.4 1.4 M17.7 17.7l1.4 1.4 M2.5 12h2 M19.5 12h2 M4.9 19.1l1.4-1.4 M17.7 6.3l1.4-1.4',
+  moon: 'M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z',
+  monitor: 'M3 5h18a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z M8 21h8 M12 17v4',
+  globe: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z M3 12h18 M12 3a13.5 13.5 0 0 1 0 18 M12 3a13.5 13.5 0 0 0 0 18',
 }
 
 withDefaults(defineProps<{ name: IconName; size?: number }>(), { size: 16 })

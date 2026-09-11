@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import AppIcon from '@/components/AppIcon.vue'
 import TemplateGlyph from '@/components/TemplateGlyph.vue'
@@ -16,6 +17,7 @@ import { useProjectStore } from '@/stores/project'
 import { loadImageFile } from '@/utils/image'
 import type { BackgroundStyle, FrameStyle, TemplateId } from '@/types'
 
+const { t } = useI18n()
 const store = useProjectStore()
 const page = computed(() => store.selectedPage)
 
@@ -51,8 +53,8 @@ const template = computed({
   set: (v) => page.value && store.updatePage(page.value.id, { template: v }),
 })
 
-function setTemplate(t: TemplateId) {
-  template.value = t
+function setTemplate(tpl: TemplateId) {
+  template.value = tpl
 }
 
 /* ---------- 背景 ---------- */
@@ -121,7 +123,9 @@ async function onFileChange(e: Event) {
     store.updatePage(page.value.id, { image })
     uploadError.value = ''
   } catch (err) {
-    uploadError.value = err instanceof Error ? err.message : '图片读取失败'
+    // loadImageFile 抛出的 message 为 i18n 键（errors.*）
+    const key = err instanceof Error && /^errors\./.test(err.message) ? err.message : 'errors.imageRead'
+    uploadError.value = t(key)
   } finally {
     input.value = ''
   }
@@ -131,53 +135,55 @@ function removeImage() {
   if (page.value) store.updatePage(page.value.id, { image: null })
 }
 
-const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
-  { id: 'black', name: '黑色边框', swatch: '#0a0a0a' },
-  { id: 'white', name: '白色边框', swatch: '#ffffff' },
-  { id: 'none', name: '无边框', swatch: 'transparent' },
+const FRAME_OPTIONS: { id: FrameStyle; labelKey: string; swatch: string }[] = [
+  { id: 'black', labelKey: 'panel.frameBlack', swatch: '#0a0a0a' },
+  { id: 'white', labelKey: 'panel.frameWhite', swatch: '#ffffff' },
+  { id: 'none', labelKey: 'panel.frameNone', swatch: 'transparent' },
 ]
 </script>
 
 <template>
   <aside class="panel">
     <div class="panel-head">
-      <span class="panel-title">页面设置</span>
-      <span v-if="store.selectedIndex >= 0" class="panel-sub">第 {{ store.selectedIndex + 1 }} 页</span>
+      <span class="panel-title">{{ t('panel.title') }}</span>
+      <span v-if="store.selectedIndex >= 0" class="panel-sub">
+        {{ t('panel.pageOf', { n: store.selectedIndex + 1 }) }}
+      </span>
     </div>
 
     <template v-if="page">
       <!-- ============ 模板 ============ -->
       <section class="sec">
-        <h3 class="sec-title">排版模板</h3>
+        <h3 class="sec-title">{{ t('panel.tplSection') }}</h3>
         <div class="tpl-grid">
           <button
-            v-for="t in templateOptions"
-            :key="t.id"
+            v-for="tpl in templateOptions"
+            :key="tpl.id"
             class="tpl-item"
-            :class="{ active: template === t.id }"
-            :title="t.label"
-            :aria-label="t.label"
-            @click="setTemplate(t.id)"
+            :class="{ active: template === tpl.id }"
+            :title="t(`templates.${tpl.id}`)"
+            :aria-label="t(`templates.${tpl.id}`)"
+            @click="setTemplate(tpl.id)"
           >
-            <TemplateGlyph :text-pos="t.textPos" :overflow="t.overflow" :landscape="isLandscape" />
+            <TemplateGlyph :text-pos="tpl.textPos" :overflow="tpl.overflow" :landscape="isLandscape" />
           </button>
         </div>
         <p class="hint">
-          {{ isLandscape ? '横屏支持文字上/下/左/右排版' : '竖屏支持文字上/下排版，与 iPhone 一致' }}
+          {{ isLandscape ? t('panel.hintLandscape') : t('panel.hintPortrait') }}
         </p>
       </section>
 
       <!-- ============ 文字 ============ -->
       <section class="sec" :class="{ 'sec-disabled': !hasText }">
-        <h3 class="sec-title">标题文字</h3>
+        <h3 class="sec-title">{{ t('panel.textSection') }}</h3>
         <textarea
           v-model="title"
-          placeholder="输入标题文字…"
+          :placeholder="t('panel.titlePlaceholder')"
           :maxlength="60"
           rows="2"
         />
         <div class="field-row" style="margin-top: 12px">
-          <span class="field-label">颜色</span>
+          <span class="field-label">{{ t('panel.colorLabel') }}</span>
           <input v-model="titleColor" type="color" />
           <input
             class="hex-input"
@@ -189,7 +195,7 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
           />
         </div>
         <div class="field-row" style="margin-top: 12px">
-          <span class="field-label">字号</span>
+          <span class="field-label">{{ t('panel.sizeLabel') }}</span>
           <div class="seg" style="flex: 1">
             <button
               v-for="p in FONT_SIZE_PRESETS"
@@ -197,7 +203,7 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
               :class="{ active: activeSizePreset === p.id }"
               @click="fontScale = p.scale"
             >
-              {{ p.name }}
+              {{ t(`sizes.${p.id}`) }}
             </button>
           </div>
         </div>
@@ -210,12 +216,12 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
           :step="FONT_SCALE_STEP"
         />
         <div class="range-marks">
-          <span>小</span>
+          <span>{{ t('panel.sizeSmallMark') }}</span>
           <span>{{ Math.round((fontScale ?? 1) * 100) }}%</span>
-          <span>大</span>
+          <span>{{ t('panel.sizeLargeMark') }}</span>
         </div>
         <div class="field-row" style="margin-top: 12px">
-          <span class="field-label">字体</span>
+          <span class="field-label">{{ t('panel.fontLabel') }}</span>
           <div class="seg" style="flex: 1">
             <button
               v-for="f in FONTS"
@@ -224,17 +230,17 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
               :style="{ fontFamily: f.css }"
               @click="font = f.id"
             >
-              {{ f.name }}
+              {{ t(`fonts.${f.id}`) }}
             </button>
           </div>
         </div>
-        <p v-if="!hasText" class="hint">当前为纯图模式，无标题文字</p>
-        <p v-else class="hint">标题强制水平居中对齐</p>
+        <p v-if="!hasText" class="hint">{{ t('panel.pureImageHint') }}</p>
+        <p v-else class="hint">{{ t('panel.centerHint') }}</p>
       </section>
 
       <!-- ============ 边框 ============ -->
       <section class="sec">
-        <h3 class="sec-title">设备边框</h3>
+        <h3 class="sec-title">{{ t('panel.frameSection') }}</h3>
         <div class="frame-row">
           <button
             v-for="opt in FRAME_OPTIONS"
@@ -246,20 +252,20 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
             <span class="frame-swatch" :style="{ background: opt.swatch }">
               <span v-if="opt.id === 'none'" class="frame-none">×</span>
             </span>
-            <span>{{ opt.name }}</span>
+            <span>{{ t(opt.labelKey) }}</span>
           </button>
         </div>
       </section>
 
       <!-- ============ 背景 ============ -->
       <section class="sec">
-        <h3 class="sec-title">背景样式</h3>
+        <h3 class="sec-title">{{ t('panel.bgSection') }}</h3>
         <div class="seg" style="margin-bottom: 12px">
           <button :class="{ active: isGradient }" @click="setBackgroundType('gradient')">
-            渐变
+            {{ t('panel.gradient') }}
           </button>
           <button :class="{ active: !isGradient }" @click="setBackgroundType('solid')">
-            纯色
+            {{ t('panel.solid') }}
           </button>
         </div>
 
@@ -271,12 +277,12 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
               class="swatch"
               :class="{ active: activePreset === g.id }"
               :style="{ background: `linear-gradient(${g.angle}deg, ${g.from}, ${g.to})` }"
-              :title="g.name"
+              :title="t(`gradients.${g.id}`)"
               @click="setGradientPreset(g.id)"
             />
           </div>
           <div class="field-row" style="margin-top: 14px">
-            <span class="field-label">渐变色</span>
+            <span class="field-label">{{ t('panel.gradientColors') }}</span>
             <input
               :value="page.background.from"
               type="color"
@@ -290,7 +296,7 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
             />
           </div>
           <div class="field-row" style="margin-top: 12px">
-            <span class="field-label">角度</span>
+            <span class="field-label">{{ t('panel.angle') }}</span>
             <input
               class="range-row"
               type="range"
@@ -306,7 +312,7 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
 
         <template v-else>
           <div class="field-row">
-            <span class="field-label">颜色</span>
+            <span class="field-label">{{ t('panel.colorLabel') }}</span>
             <input
               :value="page.background.color"
               type="color"
@@ -326,7 +332,7 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
 
       <!-- ============ 截图 ============ -->
       <section class="sec">
-        <h3 class="sec-title">App 截图</h3>
+        <h3 class="sec-title">{{ t('panel.shotSection') }}</h3>
         <div v-if="page.image" class="shot-info">
           <img class="shot-thumb" :src="page.image.src" alt="" />
           <div class="shot-meta">
@@ -336,13 +342,15 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
         </div>
         <div class="shot-actions">
           <button class="btn" @click="fileEl?.click()">
-            <AppIcon name="image" />{{ page.image ? '更换截图' : '上传截图' }}
+            <AppIcon name="image" />{{
+              page.image ? t('panel.replaceShot') : t('panel.uploadShot')
+            }}
           </button>
           <button v-if="page.image" class="btn btn-icon danger" @click="removeImage">
-            <AppIcon name="trash" />移除
+            <AppIcon name="trash" />{{ t('panel.removeShot') }}
           </button>
         </div>
-        <p class="hint">支持直接拖拽图片到右侧画布</p>
+        <p class="hint">{{ t('panel.dragHint') }}</p>
         <p v-if="uploadError" class="hint" style="color: var(--danger)">{{ uploadError }}</p>
         <input ref="fileEl" type="file" accept="image/*" hidden @change="onFileChange" />
       </section>
@@ -350,7 +358,7 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
 
     <div v-else class="panel-empty">
       <AppIcon name="image" :size="28" />
-      <p>选择一个页面进行编辑</p>
+      <p>{{ t('panel.selectPage') }}</p>
     </div>
   </aside>
 </template>
@@ -423,7 +431,7 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
 
 .tpl-item:hover {
   border-color: var(--border-strong);
-  background: #f9fafb;
+  background: var(--hover);
 }
 
 .tpl-item.active {
@@ -538,7 +546,7 @@ const FRAME_OPTIONS: { id: FrameStyle; name: string; swatch: string }[] = [
 .swatch {
   height: 34px;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border);
   cursor: pointer;
   transition: box-shadow 0.15s, transform 0.15s;
 }

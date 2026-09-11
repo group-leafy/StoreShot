@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import AppIcon from '@/components/AppIcon.vue'
 import PageCanvas from '@/components/PageCanvas.vue'
 import { resolveDeviceSpec } from '@/constants/devices'
-import { templateLabel } from '@/constants/templates'
 import { useProjectStore } from '@/stores/project'
 import { exportNodeAsPng } from '@/utils/export'
 import type { DeviceSpec, PageConfig } from '@/types'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   page: PageConfig
@@ -27,7 +29,6 @@ const canRotate = computed(() => props.device.id === 'ipad-129')
 
 const isSelected = computed(() => store.selectedId === props.page.id)
 const isDragging = computed(() => store.draggingId === props.page.id)
-const tplLabel = computed(() => templateLabel(props.page.template, props.page.orientation))
 
 const canvasRef = ref<InstanceType<typeof PageCanvas> | null>(null)
 const exporting = ref(false)
@@ -94,37 +95,46 @@ function onUpload(image: PageConfig['image']) {
     <!-- 功能区 -->
     <div class="card-header">
       <span class="card-index">{{ index + 1 }}</span>
-      <span class="card-template">{{ tplLabel }}</span>
-      <div v-if="canRotate" class="orient-toggle" title="切换画布方向" @click.stop>
+      <div v-if="canRotate" class="orient-toggle" :title="t('workspace.orientToggleTitle')" @click.stop>
         <button
           :class="{ active: page.orientation === 'portrait' }"
-          title="竖屏画布"
+          :title="t('workspace.portraitCanvas')"
           @click="store.setPageOrientation(page.id, 'portrait')"
         >
-          竖
+          {{ t('workspace.portraitShort') }}
         </button>
         <button
           :class="{ active: page.orientation === 'landscape' }"
-          title="横屏画布"
+          :title="t('workspace.landscapeCanvas')"
           @click="store.setPageOrientation(page.id, 'landscape')"
         >
-          横
+          {{ t('workspace.landscapeShort') }}
         </button>
       </div>
       <div class="card-actions">
-        <button class="btn btn-icon" title="复制页面" @click.stop="store.duplicatePage(page.id)">
-          <AppIcon name="copy" />复制
+        <button
+          class="btn btn-icon"
+          :title="t('workspace.duplicateTitle')"
+          @click.stop="store.duplicatePage(page.id)"
+        >
+          <AppIcon name="copy" />{{ t('workspace.copy') }}
         </button>
         <button
           class="btn btn-icon"
-          title="导出 PNG"
+          :title="t('workspace.exportTitle')"
           :disabled="!page.image || exporting"
           @click.stop="download"
         >
-          <AppIcon :name="exporting ? 'spinner' : 'download'" />{{ exporting ? '导出中' : '下载' }}
+          <AppIcon :name="exporting ? 'spinner' : 'download'" />{{
+            exporting ? t('workspace.exporting') : t('workspace.download')
+          }}
         </button>
-        <button class="btn btn-icon danger" title="删除页面" @click.stop="store.removePage(page.id)">
-          <AppIcon name="trash" />删除
+        <button
+          class="btn btn-icon danger"
+          :title="t('workspace.deleteTitle')"
+          @click.stop="store.removePage(page.id)"
+        >
+          <AppIcon name="trash" />{{ t('workspace.deleteShort') }}
         </button>
       </div>
     </div>
@@ -141,7 +151,7 @@ function onUpload(image: PageConfig['image']) {
       />
     </div>
 
-    <div v-if="exportError" class="card-error">导出失败，请重试</div>
+    <div v-if="exportError" class="card-error">{{ t('workspace.exportFailed') }}</div>
   </div>
 </template>
 
@@ -195,19 +205,11 @@ function onUpload(image: PageConfig['image']) {
   justify-content: center;
 }
 
-.card-template {
-  font-size: 12px;
-  color: var(--text-2);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 /* 卡片级 横/竖 方向切换（仅 iPad） */
 .orient-toggle {
   flex: none;
   display: flex;
-  background: #f3f4f6;
+  background: var(--bg-inset);
   border-radius: 6px;
   padding: 2px;
   gap: 2px;

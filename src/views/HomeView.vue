@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import AppIcon from '@/components/AppIcon.vue'
+import AppSettings from '@/components/AppSettings.vue'
 import { DEVICE_LIST } from '@/constants/devices'
 import { useProjectStore } from '@/stores/project'
 import type { DeviceId } from '@/types'
 
+const { t } = useI18n()
 const router = useRouter()
 const store = useProjectStore()
 
@@ -20,6 +23,10 @@ function start() {
 
 <template>
   <div class="home">
+    <div class="settings-float">
+      <AppSettings />
+    </div>
+
     <div class="hero">
       <div class="logo-mark">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -30,13 +37,11 @@ function start() {
         </svg>
       </div>
       <h1 class="title">StoreShot</h1>
-      <p class="subtitle">
-        App Store 商店图生成器 —— 选布局 · 填文字 · 传截图 · 出图
-      </p>
+      <p class="subtitle">{{ t('home.subtitle') }}</p>
     </div>
 
     <section class="device-section">
-      <h2 class="section-label">选择设备规格</h2>
+      <h2 class="section-label">{{ t('home.chooseDevice') }}</h2>
       <div class="device-grid">
         <button
           v-for="d in DEVICE_LIST"
@@ -49,30 +54,28 @@ function start() {
           <span class="mock" :data-device="d.id">
             <span class="mock-screen" />
           </span>
-          <span class="device-name">{{ d.label }}</span>
-          <span class="device-desc">{{ d.desc }}</span>
+          <span class="device-name">{{ t(`devices.${d.id}.name`) }}</span>
+          <span class="device-desc">{{ t(`devices.${d.id}.desc`) }}</span>
           <span class="check-badge">
             <AppIcon name="check" :size="12" />
           </span>
         </button>
       </div>
 
-      <p v-if="store.device === 'ipad-129'" class="pad-orient-tip">
-        iPad 页面支持横屏 2732 × 2048，进入工作区后可在每张卡片上随时切换 横 / 竖
-      </p>
+      <p v-if="store.device === 'ipad-129'" class="pad-orient-tip">{{ t('home.padTip') }}</p>
     </section>
 
     <button class="btn btn-primary btn-lg start-btn" @click="start">
-      开始制作
+      {{ t('home.start') }}
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M5 12h14 M13 6l6 6-6 6" />
       </svg>
     </button>
 
     <footer class="features">
-      <span>🔒 全程本地处理，图片不上传</span>
-      <span>📐 严格按 App Store 原生分辨率导出</span>
-      <span>🧩 五种固定排版，零配置成本</span>
+      <span>{{ t('home.featureLocal') }}</span>
+      <span>{{ t('home.featureResolution') }}</span>
+      <span>{{ t('home.featureTemplates') }}</span>
     </footer>
   </div>
 </template>
@@ -86,6 +89,13 @@ function start() {
   justify-content: center;
   gap: 36px;
   padding: 48px 24px;
+}
+
+.settings-float {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
 }
 
 .hero {

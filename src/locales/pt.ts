@@ -1,0 +1,132 @@
+import type { Messages } from './zh-CN'
+
+/**
+ * Português。
+ */
+const messages: Messages = {
+  meta: {
+    title: 'StoreShot · Gerador de capturas para a App Store',
+    description:
+      'StoreShot — Gerador minimalista de capturas para a App Store. Processamento 100 % local e exportação PNG exata na resolução nativa.',
+  },
+  home: {
+    subtitle:
+      'Gerador de capturas para a App Store — escolha o layout · escreva o texto · envie a captura · exporte',
+    chooseDevice: 'Escolha o tamanho do dispositivo',
+    padTip: 'As páginas de iPad suportam 2732 × 2048 na horizontal; no espaço de trabalho você alterna vertical/horizontal em cada cartão',
+    start: 'Começar',
+    featureLocal: '🔒 Processamento 100 % local, sem enviar imagens',
+    featureResolution: '📐 Exportação exata nas resoluções nativas da App Store',
+    featureTemplates: '🧩 Vários layouts comuns, configuração zero',
+  },
+  devices: {
+    'iphone-67': {
+      name: 'iPhone 6,7 polegadas',
+      desc: '1290 × 2796 px · 9:19,5',
+    },
+    'ipad-129': {
+      name: 'iPad 12,9 polegadas',
+      desc: 'Vertical 2048 × 2732 · Horizontal 2732 × 2048',
+    },
+  },
+  workspace: {
+    title: 'Espaço de trabalho StoreShot',
+    back: 'Voltar',
+    leaveConfirm: 'Voltar ao início apagará todas as páginas atuais. Sair?',
+    addPage: 'Nova página',
+    createFirst: 'Criar primeira página',
+    tip: 'Arraste para reordenar · Clique numa página para editar à esquerda · Cada página exporta seu próprio PNG',
+    defaultTitle: 'Escreva seu título aqui',
+    duplicateTitle: 'Duplicar página',
+    copy: 'Duplicar',
+    exportTitle: 'Exportar PNG',
+    download: 'Baixar',
+    exporting: 'Exportando…',
+    deleteTitle: 'Excluir página',
+    deleteShort: 'Excluir',
+    exportFailed: 'Falha ao exportar, tente novamente',
+    orientToggleTitle: 'Alternar orientação da tela',
+    portraitCanvas: 'Tela vertical',
+    landscapeCanvas: 'Tela horizontal',
+    portraitShort: 'V',
+    landscapeShort: 'H',
+  },
+  panel: {
+    title: 'Configurações da página',
+    pageOf: 'Página {n}',
+    tplSection: 'Modelo de layout',
+    hintPortrait: 'Na vertical o texto pode ficar em cima/embaixo',
+    hintLandscape: 'Na horizontal o texto pode ficar em cima/embaixo/esquerda/direita',
+    textSection: 'Texto do título',
+    titlePlaceholder: 'Digite o título…',
+    colorLabel: 'Cor',
+    sizeLabel: 'Tamanho',
+    sizeSmallMark: 'P',
+    sizeLargeMark: 'G',
+    fontLabel: 'Fonte',
+    pureImageHint: 'Modo somente imagem, sem texto de título',
+    centerHint: 'O título fica sempre centralizado na horizontal',
+    frameSection: 'Moldura do dispositivo',
+    frameBlack: 'Moldura preta',
+    frameWhite: 'Moldura branca',
+    frameNone: 'Sem moldura',
+    bgSection: 'Fundo',
+    gradient: 'Gradiente',
+    solid: 'Cor sólida',
+    gradientColors: 'Cores',
+    angle: 'Ângulo',
+    shotSection: 'Captura do app',
+    replaceShot: 'Substituir',
+    uploadShot: 'Enviar captura',
+    removeShot: 'Remover',
+    dragHint: 'Você também pode arrastar uma imagem para a tela',
+    selectPage: 'Selecione uma página para editar',
+    uploadFailed: 'Não foi possível ler a imagem',
+  },
+  canvas: {
+    uploadPlaceholder: 'Clique ou solte uma captura do app',
+  },
+  templates: {
+    'top-fit': 'Texto em cima · imagem completa',
+    'top-overflow': 'Texto em cima · imagem afunda',
+    'bottom-fit': 'Texto embaixo · imagem completa',
+    'bottom-overflow': 'Texto embaixo · imagem flutua',
+    'left-fit': 'Texto à esquerda · imagem completa',
+    'left-overflow': 'Texto à esquerda · imagem transborda à direita',
+    'right-fit': 'Texto à direita · imagem completa',
+    'right-overflow': 'Texto à direita · imagem transborda à esquerda',
+    none: 'Somente imagem',
+  },
+  fonts: {
+    sans: 'Sans-serif padrão',
+    rounded: 'Arredondada',
+    serif: 'Serif',
+  },
+  sizes: {
+    s: 'Pequeno',
+    m: 'Médio',
+    l: 'Grande',
+  },
+  gradients: {
+    indigo: 'Índigo violeta',
+    ocean: 'Azul oceano',
+    sunset: 'Pôr do sol',
+    dusk: 'Crepúsculo',
+    forest: 'Menta floresta',
+    warm: 'Ouro quente',
+    graphite: 'Grafite',
+    cloud: 'Cinza claro',
+  },
+  theme: {
+    system: 'Seguir o sistema',
+    light: 'Modo claro',
+    dark: 'Modo escuro',
+  },
+  errors: {
+    imageType: 'Somente arquivos de imagem são suportados',
+    imageRead: 'Não foi possível ler a imagem',
+    imageParse: 'Não foi possível analisar a imagem',
+  },
+}
+
+export default messages

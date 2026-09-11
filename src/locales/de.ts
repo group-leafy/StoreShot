@@ -1,0 +1,132 @@
+import type { Messages } from './zh-CN'
+
+/**
+ * Deutsch。
+ */
+const messages: Messages = {
+  meta: {
+    title: 'StoreShot · App-Store-Screenshot-Generator',
+    description:
+      'StoreShot — Minimalistischer App-Store-Screenshot-Generator. Komplett lokale Verarbeitung, exakter PNG-Export in nativer Auflösung.',
+  },
+  home: {
+    subtitle:
+      'App-Store-Screenshot-Generator — Layout wählen · Text einfügen · Screenshot hochladen · Export',
+    chooseDevice: 'Gerätegröße wählen',
+    padTip: 'iPad-Seiten unterstützen 2732 × 2048 im Querformat — im Arbeitsbereich kann jede Karte zwischen Hoch- und Querformat wechseln',
+    start: 'Jetzt starten',
+    featureLocal: '🔒 100 % lokale Verarbeitung — Bilder werden nie hochgeladen',
+    featureResolution: '📐 Export exakt in nativer App-Store-Auflösung',
+    featureTemplates: '🧩 Viele bewährte Layouts, kein Einstellungsaufwand',
+  },
+  devices: {
+    'iphone-67': {
+      name: 'iPhone 6,7 Zoll',
+      desc: '1290 × 2796 px · 9:19,5',
+    },
+    'ipad-129': {
+      name: 'iPad 12,9 Zoll',
+      desc: 'Hochformat 2048 × 2732 · Querformat 2732 × 2048',
+    },
+  },
+  workspace: {
+    title: 'StoreShot Arbeitsbereich',
+    back: 'Zurück',
+    leaveConfirm: 'Beim Zurückkehren werden alle aktuellen Seiten gelöscht. Wirklich verlassen?',
+    addPage: 'Neue Seite',
+    createFirst: 'Erste Seite erstellen',
+    tip: 'Zum Sortieren ziehen · Seite anklicken und links bearbeiten · jede Seite als eigenes PNG exportieren',
+    defaultTitle: 'Schreibe deinen Titel hier',
+    duplicateTitle: 'Seite duplizieren',
+    copy: 'Duplizieren',
+    exportTitle: 'PNG exportieren',
+    download: 'Herunterladen',
+    exporting: 'Exportiert…',
+    deleteTitle: 'Seite löschen',
+    deleteShort: 'Löschen',
+    exportFailed: 'Export fehlgeschlagen, bitte erneut versuchen',
+    orientToggleTitle: 'Ausrichtung der Fläche wechseln',
+    portraitCanvas: 'Hochformat-Fläche',
+    landscapeCanvas: 'Querformat-Fläche',
+    portraitShort: 'H',
+    landscapeShort: 'Q',
+  },
+  panel: {
+    title: 'Seiteneinstellungen',
+    pageOf: 'Seite {n}',
+    tplSection: 'Layout-Vorlage',
+    hintPortrait: 'Hochformat unterstützt Text oben/unten',
+    hintLandscape: 'Querformat unterstützt Text oben/unten/links/rechts',
+    textSection: 'Titeltext',
+    titlePlaceholder: 'Titel eingeben…',
+    colorLabel: 'Farbe',
+    sizeLabel: 'Größe',
+    sizeSmallMark: 'S',
+    sizeLargeMark: 'L',
+    fontLabel: 'Schrift',
+    pureImageHint: 'Nur-Bild-Modus — kein Titeltext',
+    centerHint: 'Titel sind immer horizontal zentriert',
+    frameSection: 'Geräterahmen',
+    frameBlack: 'Schwarzer Rahmen',
+    frameWhite: 'Weißer Rahmen',
+    frameNone: 'Ohne Rahmen',
+    bgSection: 'Hintergrund',
+    gradient: 'Verlauf',
+    solid: 'Unifarben',
+    gradientColors: 'Farben',
+    angle: 'Winkel',
+    shotSection: 'App-Screenshot',
+    replaceShot: 'Ersetzen',
+    uploadShot: 'Screenshot hochladen',
+    removeShot: 'Entfernen',
+    dragHint: 'Du kannst ein Bild auch direkt auf die Fläche ziehen',
+    selectPage: 'Seite zum Bearbeiten auswählen',
+    uploadFailed: 'Bild konnte nicht gelesen werden',
+  },
+  canvas: {
+    uploadPlaceholder: 'App-Screenshot klicken oder ablegen',
+  },
+  templates: {
+    'top-fit': 'Text oben · ganzes Bild',
+    'top-overflow': 'Text oben · Bild versinkt unten',
+    'bottom-fit': 'Text unten · ganzes Bild',
+    'bottom-overflow': 'Text unten · Bild schwebt oben',
+    'left-fit': 'Text links · ganzes Bild',
+    'left-overflow': 'Text links · Bild läuft rechts über',
+    'right-fit': 'Text rechts · ganzes Bild',
+    'right-overflow': 'Text rechts · Bild läuft links über',
+    none: 'Nur Bild',
+  },
+  fonts: {
+    sans: 'Standard Sans-Serif',
+    rounded: 'Rund',
+    serif: 'Serif',
+  },
+  sizes: {
+    s: 'Klein',
+    m: 'Mittel',
+    l: 'Groß',
+  },
+  gradients: {
+    indigo: 'Indigo-Violett',
+    ocean: 'Ozeanblau',
+    sunset: 'Sonnenuntergang',
+    dusk: 'Abenddämmerung',
+    forest: 'Waldminze',
+    warm: 'Warmes Gold',
+    graphite: 'Graphit',
+    cloud: 'Hellgrau',
+  },
+  theme: {
+    system: 'Systemeinstellung',
+    light: 'Helles Design',
+    dark: 'Dunkles Design',
+  },
+  errors: {
+    imageType: 'Nur Bilddateien werden unterstützt',
+    imageRead: 'Bild konnte nicht gelesen werden',
+    imageParse: 'Bild konnte nicht analysiert werden',
+  },
+}
+
+export default messages

@@ -1,0 +1,132 @@
+import type { Messages } from './zh-CN'
+
+/**
+ * 日本語。
+ */
+const messages: Messages = {
+  meta: {
+    title: 'StoreShot · App Store スクリーンショットジェネレーター',
+    description:
+      'StoreShot — シンプルな App Store スクリーンショットジェネレーター。完全ローカル処理で、ネイティブ解像度の PNG を正確に出力します。',
+  },
+  home: {
+    subtitle:
+      'App Store スクリーンショットジェネレーター —— レイアウトを選ぶ · 文字を入力 · スクリーンショットを追加 · 書き出し',
+    chooseDevice: 'デバイスサイズを選択',
+    padTip: 'iPad ページは横向き 2732 × 2048 に対応。ワークスペースで各カードを縦横いつでも切り替えられます',
+    start: '作成を始める',
+    featureLocal: '🔒 すべてローカル処理・画像はアップロードされません',
+    featureResolution: '📐 App Store ネイティブ解像度で正確に書き出し',
+    featureTemplates: '🧩 定番レイアウトを多数、設定不要',
+  },
+  devices: {
+    'iphone-67': {
+      name: 'iPhone 6.7 インチ',
+      desc: '1290 × 2796 px · 9:19.5',
+    },
+    'ipad-129': {
+      name: 'iPad 12.9 インチ',
+      desc: '縦 2048 × 2732 · 横 2732 × 2048',
+    },
+  },
+  workspace: {
+    title: 'StoreShot ワークスペース',
+    back: '戻る',
+    leaveConfirm: 'ホームに戻ると現在のすべてのページが消去されます。戻りますか？',
+    addPage: '新規ページ',
+    createFirst: '最初のページを作成',
+    tip: 'ドラッグで並べ替え · ページをクリックして左で編集 · 各ページを個別に PNG 書き出し',
+    defaultTitle: 'アピールポイントを書きましょう',
+    duplicateTitle: 'ページを複製',
+    copy: '複製',
+    exportTitle: 'PNG を書き出す',
+    download: 'ダウンロード',
+    exporting: '書き出し中',
+    deleteTitle: 'ページを削除',
+    deleteShort: '削除',
+    exportFailed: '書き出しに失敗しました。もう一度お試しください',
+    orientToggleTitle: 'キャンバスの向きを切り替え',
+    portraitCanvas: '縦向きキャンバス',
+    landscapeCanvas: '横向きキャンバス',
+    portraitShort: '縦',
+    landscapeShort: '横',
+  },
+  panel: {
+    title: 'ページ設定',
+    pageOf: '{n} ページ目',
+    tplSection: 'レイアウトテンプレート',
+    hintPortrait: '縦向きはテキストを上/下に配置できます',
+    hintLandscape: '横向きはテキストを上/下/左/右に配置できます',
+    textSection: 'タイトルテキスト',
+    titlePlaceholder: 'タイトルを入力…',
+    colorLabel: '色',
+    sizeLabel: 'サイズ',
+    sizeSmallMark: '小',
+    sizeLargeMark: '大',
+    fontLabel: 'フォント',
+    pureImageHint: '画像のみモードのため、タイトルはありません',
+    centerHint: 'タイトルは常に水平中央寄せです',
+    frameSection: 'デバイスフレーム',
+    frameBlack: 'ブラックフレーム',
+    frameWhite: 'ホワイトフレーム',
+    frameNone: 'フレームなし',
+    bgSection: '背景スタイル',
+    gradient: 'グラデーション',
+    solid: '単色',
+    gradientColors: 'グラデーション色',
+    angle: '角度',
+    shotSection: 'App スクリーンショット',
+    replaceShot: '画像を変更',
+    uploadShot: '画像をアップロード',
+    removeShot: '削除',
+    dragHint: '画像を右のキャンバスに直接ドラッグできます',
+    selectPage: '編集するページを選択してください',
+    uploadFailed: '画像の読み込みに失敗しました',
+  },
+  canvas: {
+    uploadPlaceholder: 'クリック、またはスクリーンショットをドロップ',
+  },
+  templates: {
+    'top-fit': 'テキスト上 · 画像すべて表示',
+    'top-overflow': 'テキスト上 · 画像が下に沈む',
+    'bottom-fit': 'テキスト下 · 画像すべて表示',
+    'bottom-overflow': 'テキスト下 · 画像が上に浮く',
+    'left-fit': 'テキスト左 · 画像すべて表示',
+    'left-overflow': 'テキスト左 · 画像が右にはみ出す',
+    'right-fit': 'テキスト右 · 画像すべて表示',
+    'right-overflow': 'テキスト右 · 画像が左にはみ出す',
+    none: '画像のみ',
+  },
+  fonts: {
+    sans: '標準サンセリフ',
+    rounded: '丸ゴシック',
+    serif: 'セリフ',
+  },
+  sizes: {
+    s: '小',
+    m: '中',
+    l: '大',
+  },
+  gradients: {
+    indigo: 'インディゴバイオレット',
+    ocean: 'オーシャンブルー',
+    sunset: 'サンセットピンク',
+    dusk: 'トワイライト',
+    forest: 'フォレストミント',
+    warm: 'ウォームゴールド',
+    graphite: 'グラファイト',
+    cloud: 'ライトグレー',
+  },
+  theme: {
+    system: 'システムに従う',
+    light: 'ライトモード',
+    dark: 'ダークモード',
+  },
+  errors: {
+    imageType: '画像ファイルのみ対応しています',
+    imageRead: '画像の読み込みに失敗しました',
+    imageParse: '画像の解析に失敗しました',
+  },
+}
+
+export default messages

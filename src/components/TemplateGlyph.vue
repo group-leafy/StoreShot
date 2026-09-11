@@ -22,8 +22,9 @@ defineProps<{
   position: relative;
   display: block;
   border-radius: 4px;
-  background: #eef2ff;
-  border: 1px solid #dbe1f5;
+  /* 深浅色由 main.css 的 --glyph-* 令牌控制 */
+  background: var(--glyph-bg);
+  border: 1px solid var(--glyph-border);
   overflow: hidden;
   flex: none;
 }

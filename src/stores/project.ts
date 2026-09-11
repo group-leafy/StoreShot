@@ -4,11 +4,9 @@ import { defineStore } from 'pinia'
 import { DEVICES } from '@/constants/devices'
 import { coerceTemplate } from '@/constants/templates'
 import { DEFAULT_BACKGROUND } from '@/constants/presets'
+import { i18n } from '@/locales'
 import { uid } from '@/utils/id'
 import type { BackgroundStyle, DeviceId, Orientation, PageConfig } from '@/types'
-
-/** 新建页面的默认标题文案 */
-const DEFAULT_TITLE = '写下你的卖点标题'
 
 export const useProjectStore = defineStore('project', () => {
   /** 当前设备规格（竖屏基准；横竖由每页自身决定） */
@@ -35,7 +33,7 @@ export const useProjectStore = defineStore('project', () => {
       id: uid('page'),
       orientation,
       template: 'top-fit',
-      title: DEFAULT_TITLE,
+      title: i18n.global.t('workspace.defaultTitle'),
       titleColor: '#FFFFFF',
       fontScale: 1,
       font: 'sans',

@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <meta name="description" content="StoreShot — 极简 App Store 商店图生成器，纯本地处理，精确导出原生分辨率 PNG">
     <title>StoreShot · App Store 商店图生成器</title>
+    <script>
+      // 首屏前应用主题，避免深色模式下闪白（与应用内 useTheme 逻辑保持一致）
+      try {
+        var m = localStorage.getItem('storeshot-theme')
+        if (
+          m === 'dark' ||
+          ((!m || m === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+          document.documentElement.classList.add('dark')
+        }
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="app"></div>

@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import AppIcon from '@/components/AppIcon.vue'
+import AppSettings from '@/components/AppSettings.vue'
 import PageCard from '@/components/PageCard.vue'
 import PropertyPanel from '@/components/PropertyPanel.vue'
 import { useProjectStore } from '@/stores/project'
 
+const { t } = useI18n()
 const router = useRouter()
 const store = useProjectStore()
 
-/** 返回首页：二次确认，确认后清空全部页面数据 */
+/** 返回首页（确认弹窗与数据清理由路由守卫统一处理，浏览器返回同样生效） */
 function goBack() {
-  if (store.pages.length > 0 && !window.confirm('返回首页将清空当前所有页面，确定退出吗？')) {
-    return
-  }
-  store.$reset()
   router.push('/')
 }
 
@@ -68,10 +67,14 @@ watch(rowEl, (el) => {
   <div class="workspace">
     <header class="topbar">
       <button class="btn" @click="goBack">
-        <AppIcon name="arrow-left" />返回
+        <AppIcon name="arrow-left" />{{ t('workspace.back') }}
       </button>
-      <div class="topbar-title">StoreShot 工作区</div>
-      <div class="device-chip">{{ store.deviceSpec.label }} · {{ store.deviceSpec.width }} × {{ store.deviceSpec.height }} px</div>
+      <div class="topbar-title">{{ t('workspace.title') }}</div>
+      <div class="device-chip">
+        {{ t(`devices.${store.deviceSpec.id}.name`) }} · {{ store.deviceSpec.width }} ×
+        {{ store.deviceSpec.height }} px
+      </div>
+      <AppSettings />
     </header>
 
     <div class="workspace-body">
@@ -96,18 +99,18 @@ watch(rowEl, (el) => {
               @click="store.addPage()"
             >
               <AppIcon name="plus" :size="26" />
-              <span>新建页面</span>
+              <span>{{ t('workspace.addPage') }}</span>
             </button>
           </TransitionGroup>
         </div>
 
         <div v-else class="empty-state">
           <button class="btn btn-primary btn-lg" @click="store.addPage()">
-            <AppIcon name="plus" />新建第一页
+            <AppIcon name="plus" />{{ t('workspace.createFirst') }}
           </button>
         </div>
 
-        <p class="pages-tip">拖动页面可调整顺序 · 点击页面在左侧编辑 · 每页可单独导出 PNG</p>
+        <p class="pages-tip">{{ t('workspace.tip') }}</p>
       </main>
     </div>
   </div>
@@ -140,11 +143,12 @@ watch(rowEl, (el) => {
   margin-left: auto;
   font-size: 12px;
   color: var(--text-2);
-  background: #f3f4f6;
+  background: var(--bg-inset);
   border: 1px solid var(--border);
   padding: 3px 12px;
   border-radius: 99px;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .workspace-body {

@@ -60,13 +60,9 @@ export interface PageConfig {
   image: ScreenshotImage | null
 }
 
-/** 设备规格 */
+/** 设备规格（展示文案见 locales 的 devices.* 命名空间） */
 export interface DeviceSpec {
   id: DeviceId
-  /** 展示名 */
-  label: string
-  /** 副标题说明 */
-  desc: string
   /** 画布方向（iPad 支持横屏，iPhone 固定竖屏） */
   orientation: Orientation
   /** 导出宽度（App Store 原生要求，px） */

@@ -119,22 +119,27 @@ export function computeLayout(page: PageConfig, device: DeviceSpec): PageLayout 
     outerW = region.w / (1 - OVERFLOW_RATIO)
     outerH = outerW / ratio
     if (outerH > region.h) {
-      // 过窄截图兜底：等比缩到区域高度内，避免上下被裁
+      // 过高截图（如横屏画布传竖屏图）：等比缩到区域高度内，改为贴住溢出侧页面边缘，
+      // 保留“冲出画布”的沉浸视觉（否则图片会浮在区域中间、溢出感丢失）
       outerH = region.h
       outerW = outerH * ratio
+      outerX = textAtStart ? W - outerW : 0
+    } else {
+      outerX = textAtStart ? region.x : region.x + region.w - outerW
     }
-    outerX = textAtStart ? region.x : region.x + region.w - outerW
     outerY = region.y + (region.h - outerH) / 2
   } else {
     // 溢出（文字在上/下）：截图沿纵轴 80% 落在区域内，20% 溢出被页面裁切
     outerH = region.h / (1 - OVERFLOW_RATIO)
     outerW = outerH * ratio
     if (outerW > region.w) {
-      // 超宽截图兜底：等比缩到页宽内，避免左右被裁
+      // 过宽截图（如竖屏画布传横屏图）：等比缩到页宽内，改为贴住溢出侧页面边缘
       outerW = region.w
       outerH = outerW / ratio
+      outerY = textAtStart ? H - outerH : 0
+    } else {
+      outerY = textAtStart ? region.y : region.y + region.h - outerH
     }
-    outerY = textAtStart ? region.y : region.y + region.h - outerH
     outerX = region.x + (region.w - outerW) / 2
   }
 
