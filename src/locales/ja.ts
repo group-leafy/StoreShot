@@ -15,9 +15,9 @@ const messages: Messages = {
     chooseDevice: 'デバイスサイズを選択',
     padTip: 'iPad ページは横向き 2732 × 2048 に対応。ワークスペースで各カードを縦横いつでも切り替えられます',
     start: '作成を始める',
-    featureLocal: '🔒 すべてローカル処理・画像はアップロードされません',
-    featureResolution: '📐 App Store ネイティブ解像度で正確に書き出し',
-    featureTemplates: '🧩 定番レイアウトを多数、設定不要',
+    featureLocal: 'すべてローカル処理・画像はアップロードされません',
+    featureResolution: 'App Store ネイティブ解像度で正確に書き出し',
+    featureTemplates: '定番レイアウトを多数、設定不要',
   },
   devices: {
     'iphone-67': {

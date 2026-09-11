@@ -29,12 +29,7 @@ function start() {
 
     <div class="hero">
       <div class="logo-mark">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="5" width="18" height="14" rx="3" />
-          <path d="M3 15l4.5-4.5a1.5 1.5 0 0 1 2.1 0L14 15" />
-          <path d="M14.5 13.5l2-2a1.5 1.5 0 0 1 2.1 0L21 14" />
-          <circle cx="15.5" cy="9" r="1" fill="#fff" stroke="none" />
-        </svg>
+        <AppIcon name="image" :size="32" />
       </div>
       <h1 class="title">StoreShot</h1>
       <p class="subtitle">{{ t('home.subtitle') }}</p>
@@ -107,11 +102,11 @@ function start() {
   height: 64px;
   border-radius: 18px;
   margin: 0 auto 18px;
-  background: linear-gradient(135deg, #6366f1, #a855f7);
+  background: var(--accent);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
 }
 
 .title {
@@ -198,7 +193,7 @@ function start() {
   width: 100%;
   height: 100%;
   border-radius: 12px;
-  background: linear-gradient(160deg, #6366f1, #a855f7);
+  background: var(--bg-inset);
 }
 
 .mock[data-device='ipad-129'] .mock-screen {

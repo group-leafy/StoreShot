@@ -13,9 +13,9 @@ const messages: Messages = {
     chooseDevice: '選擇裝置規格',
     padTip: 'iPad 頁面支援橫向 2732 × 2048，進入工作區後可在每張卡片上隨時切換 橫 / 直',
     start: '開始製作',
-    featureLocal: '🔒 全程本機處理，圖片不上傳',
-    featureResolution: '📐 嚴格按 App Store 原生解析度輸出',
-    featureTemplates: '🧩 多種常用版面，零設定成本',
+    featureLocal: '全程本機處理，圖片不上傳',
+    featureResolution: '嚴格按 App Store 原生解析度輸出',
+    featureTemplates: '多種常用版面，零設定成本',
   },
   devices: {
     'iphone-67': {

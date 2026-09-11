@@ -14,9 +14,9 @@ const messages: Messages = {
     chooseDevice: '기기 크기 선택',
     padTip: 'iPad 페이지는 가로 2732 × 2048를 지원합니다. 작업 공간에서 각 카드를 언제든 가로/세로로 전환할 수 있어요',
     start: '만들기 시작',
-    featureLocal: '🔒 전체 로컬 처리, 이미지 업로드 없음',
-    featureResolution: '📐 App Store 네이티브 해상도로 정확히 내보내기',
-    featureTemplates: '🧩 다양한 기본 레이아웃, 설정 불필요',
+    featureLocal: '전체 로컬 처리, 이미지 업로드 없음',
+    featureResolution: 'App Store 네이티브 해상도로 정확히 내보내기',
+    featureTemplates: '다양한 기본 레이아웃, 설정 불필요',
   },
   devices: {
     'iphone-67': {

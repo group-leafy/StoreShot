@@ -14,9 +14,9 @@ const messages: Messages = {
     chooseDevice: 'Choose a device size',
     padTip: 'iPad pages support 2732 × 2048 landscape — switch each card between portrait and landscape in the workspace',
     start: 'Start Creating',
-    featureLocal: '🔒 100% local processing — screenshots never leave your device',
-    featureResolution: '📐 Exports at exact App Store native resolutions',
-    featureTemplates: '🧩 Many proven layouts, zero learning cost',
+    featureLocal: '100% local processing — screenshots never leave your device',
+    featureResolution: 'Exports at exact App Store native resolutions',
+    featureTemplates: 'Many proven layouts, zero learning cost',
   },
   devices: {
     'iphone-67': {

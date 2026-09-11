@@ -11,9 +11,9 @@ const messages = {
     chooseDevice: '选择设备规格',
     padTip: 'iPad 页面支持横屏 2732 × 2048，进入工作区后可在每张卡片上随时切换 横 / 竖',
     start: '开始制作',
-    featureLocal: '🔒 全程本地处理，图片不上传',
-    featureResolution: '📐 严格按 App Store 原生分辨率导出',
-    featureTemplates: '🧩 多种常用排版，零配置成本',
+    featureLocal: '全程本地处理，图片不上传',
+    featureResolution: '严格按 App Store 原生分辨率导出',
+    featureTemplates: '多种常用排版，零配置成本',
   },
   devices: {
     'iphone-67': {

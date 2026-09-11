@@ -15,9 +15,9 @@ const messages: Messages = {
     chooseDevice: 'Gerätegröße wählen',
     padTip: 'iPad-Seiten unterstützen 2732 × 2048 im Querformat — im Arbeitsbereich kann jede Karte zwischen Hoch- und Querformat wechseln',
     start: 'Jetzt starten',
-    featureLocal: '🔒 100 % lokale Verarbeitung — Bilder werden nie hochgeladen',
-    featureResolution: '📐 Export exakt in nativer App-Store-Auflösung',
-    featureTemplates: '🧩 Viele bewährte Layouts, kein Einstellungsaufwand',
+    featureLocal: '100 % lokale Verarbeitung — Bilder werden nie hochgeladen',
+    featureResolution: 'Export exakt in nativer App-Store-Auflösung',
+    featureTemplates: 'Viele bewährte Layouts, kein Einstellungsaufwand',
   },
   devices: {
     'iphone-67': {

@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import AppIcon from '@/components/AppIcon.vue'
 import { FONTS } from '@/constants/presets'
 import { parseTemplate } from '@/constants/templates'
 import { computeLayout } from '@/utils/layout'
@@ -248,21 +249,7 @@ defineExpose({ pageEl })
           :style="placeholderStyle"
           @click.stop="onPlaceholderClick"
         >
-          <svg
-            :width="base * 0.06"
-            :height="base * 0.06"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <rect x="3" y="5" width="18" height="14" rx="3" />
-            <path d="M3 15l4.5-4.5a1.5 1.5 0 0 1 2.1 0L14 15" />
-            <path d="M14.5 13.5l2-2a1.5 1.5 0 0 1 2.1 0L21 14" />
-            <circle cx="15.5" cy="9" r="1" fill="currentColor" stroke="none" />
-          </svg>
+          <AppIcon name="image" :size="Math.round(base * 0.06)" />
           <span>{{ t('canvas.uploadPlaceholder') }}</span>
         </div>
       </div>
@@ -285,7 +272,7 @@ defineExpose({ pageEl })
   inset: 0;
   border: 3px solid var(--accent);
   border-radius: 8px;
-  background: rgba(99, 102, 241, 0.12);
+  background: var(--accent-soft);
   pointer-events: none;
 }
 

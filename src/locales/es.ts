@@ -15,9 +15,9 @@ const messages: Messages = {
     chooseDevice: 'Elige el tamaño del dispositivo',
     padTip: 'Las páginas de iPad admiten 2732 × 2048 en horizontal; en el espacio de trabajo puedes alternar vertical/horizontal en cada tarjeta',
     start: 'Comenzar',
-    featureLocal: '🔒 Procesamiento 100 % local, sin subir imágenes',
-    featureResolution: '📐 Exportación exacta en resoluciones nativas de App Store',
-    featureTemplates: '🧩 Varios diseños habituales, cero configuración',
+    featureLocal: 'Procesamiento 100 % local, sin subir imágenes',
+    featureResolution: 'Exportación exacta en resoluciones nativas de App Store',
+    featureTemplates: 'Varios diseños habituales, cero configuración',
   },
   devices: {
     'iphone-67': {

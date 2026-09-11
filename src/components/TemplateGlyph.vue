@@ -43,7 +43,7 @@ defineProps<{
 /* 文字条：上/下为横条，左/右为竖条 */
 .g-text {
   position: absolute;
-  background: #a5b4fc;
+  background: var(--text-3);
   border-radius: 2px;
 }
 
@@ -81,7 +81,7 @@ defineProps<{
 .g-img {
   position: absolute;
   border-radius: 3px;
-  background: linear-gradient(135deg, #818cf8, #6366f1);
+  background: var(--text-2);
 }
 
 .glyph[data-pos='none'] .g-img {

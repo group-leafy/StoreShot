@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#6366F1"/>
-      <stop offset="1" stop-color="#A855F7"/>
-    </linearGradient>
-  </defs>
-  <!-- 与首页 logo-mark 一致：渐变圆角底 + 白色照片图标 -->
-  <rect width="64" height="64" rx="18" fill="url(#g)"/>
+  <!-- 与首页 logo-mark 一致：纯色圆角底（跟随主色）+ 白色照片图标 -->
+  <style>
+    .bg { fill: #ea580c; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #fb923c; }
+    }
+  </style>
+  <rect class="bg" width="64" height="64" rx="18"/>
   <g fill="none" stroke="#fff" stroke-width="2.72" stroke-linecap="round" stroke-linejoin="round" transform="translate(12.8 12.8) scale(1.6)">
     <rect x="3" y="5" width="18" height="14" rx="3"/>
     <path d="M3 15l4.5-4.5a1.5 1.5 0 0 1 2.1 0L14 15"/>
