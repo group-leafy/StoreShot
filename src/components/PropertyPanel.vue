@@ -12,6 +12,7 @@ import {
   FONT_SCALE_STEP,
   FONT_SIZE_PRESETS,
   GRADIENT_PRESETS,
+  SOLID_PRESETS,
 } from '@/constants/presets'
 import { useProjectStore } from '@/stores/project'
 import { loadImageFile } from '@/utils/image'
@@ -96,6 +97,19 @@ function setGradientPreset(id: string) {
   const preset = GRADIENT_PRESETS.find((g) => g.id === id)
   if (!preset) return
   patchGradient({ from: preset.from, to: preset.to, angle: preset.angle })
+}
+
+/** 当前命中的预设纯色 id */
+const activeSolidPreset = computed(() => {
+  const bg = page.value?.background
+  if (!bg || bg.type !== 'solid') return null
+  return SOLID_PRESETS.find((s) => s.color === bg.color)?.id ?? null
+})
+
+function setSolidPreset(id: string) {
+  const preset = SOLID_PRESETS.find((s) => s.id === id)
+  if (!preset) return
+  patchSolidColor(preset.color)
 }
 
 /** 标题颜色 hex 输入（失焦时校验提交） */
@@ -311,7 +325,18 @@ const FRAME_OPTIONS: { id: FrameStyle; labelKey: string; swatch: string }[] = [
         </template>
 
         <template v-else>
-          <div class="field-row">
+          <div class="swatch-grid">
+            <button
+              v-for="s in SOLID_PRESETS"
+              :key="s.id"
+              class="swatch"
+              :class="{ active: activeSolidPreset === s.id }"
+              :style="{ background: s.color }"
+              :title="t(`solids.${s.id}`)"
+              @click="setSolidPreset(s.id)"
+            />
+          </div>
+          <div class="field-row" style="margin-top: 14px">
             <span class="field-label">{{ t('panel.colorLabel') }}</span>
             <input
               :value="page.background.color"
