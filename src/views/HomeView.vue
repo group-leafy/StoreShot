@@ -17,7 +17,8 @@ function choose(id: DeviceId) {
 }
 
 function start() {
-  router.push('/workspace')
+  // 设备 id 编入 query：刷新后工作区仍停留在所选设备（页面数据仍只在内存）
+  router.push({ path: '/workspace', query: { device: store.device } })
 }
 </script>
 

@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import AppIcon from '@/components/AppIcon.vue'
 import AppSettings from '@/components/AppSettings.vue'
 import PageCard from '@/components/PageCard.vue'
 import PropertyPanel from '@/components/PropertyPanel.vue'
+import { DEVICES } from '@/constants/devices'
 import { useProjectStore } from '@/stores/project'
+import type { DeviceId } from '@/types'
 
 const { t } = useI18n()
+const route = useRoute()
 const router = useRouter()
 const store = useProjectStore()
 
@@ -19,6 +22,9 @@ function goBack() {
 }
 
 onMounted(() => {
+  // 刷新后从 URL 恢复设备（Pinia 只在内存，不恢复会退回默认 iPhone）；非法值忽略
+  const q = route.query.device
+  if (typeof q === 'string' && q in DEVICES) store.device = q as DeviceId
   // 直接进入工作区时自动创建第一页
   if (store.pages.length === 0) store.addPage()
   if (areaEl.value) ro.observe(areaEl.value)
