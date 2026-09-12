@@ -13,7 +13,7 @@ const messages: Messages = {
     subtitle:
       'App Store スクリーンショットジェネレーター —— レイアウトを選ぶ · 文字を入力 · スクリーンショットを追加 · 書き出し',
     chooseDevice: 'デバイスサイズを選択',
-    padTip: 'iPad ページは横向き 2732 × 2048 に対応。ワークスペースで各カードを縦横いつでも切り替えられます',
+    padTip: 'iPad ページは横向き 2752 × 2064 に対応。ワークスペースで各カードを縦横いつでも切り替えられます',
     start: '作成を始める',
     featureLocal: 'すべてローカル処理・画像はアップロードされません',
     featureResolution: 'App Store ネイティブ解像度で正確に書き出し',
@@ -21,12 +21,12 @@ const messages: Messages = {
   },
   devices: {
     'iphone-67': {
-      name: 'iPhone 6.7 インチ',
-      desc: '1290 × 2796 px · 9:19.5',
+      name: 'iPhone',
+      desc: '1242 × 2688 px · 9:19.5',
     },
     'ipad-129': {
-      name: 'iPad 12.9 インチ',
-      desc: '縦 2048 × 2732 · 横 2732 × 2048',
+      name: 'iPad',
+      desc: '縦 2064 × 2752 · 横 2752 × 2064',
     },
   },
   workspace: {

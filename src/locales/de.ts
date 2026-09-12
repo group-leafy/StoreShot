@@ -13,7 +13,7 @@ const messages: Messages = {
     subtitle:
       'App-Store-Screenshot-Generator — Layout wählen · Text einfügen · Screenshot hochladen · Export',
     chooseDevice: 'Gerätegröße wählen',
-    padTip: 'iPad-Seiten unterstützen 2732 × 2048 im Querformat — im Arbeitsbereich kann jede Karte zwischen Hoch- und Querformat wechseln',
+    padTip: 'iPad-Seiten unterstützen 2752 × 2064 im Querformat — im Arbeitsbereich kann jede Karte zwischen Hoch- und Querformat wechseln',
     start: 'Jetzt starten',
     featureLocal: '100 % lokale Verarbeitung — Bilder werden nie hochgeladen',
     featureResolution: 'Export exakt in nativer App-Store-Auflösung',
@@ -21,12 +21,12 @@ const messages: Messages = {
   },
   devices: {
     'iphone-67': {
-      name: 'iPhone 6,7 Zoll',
-      desc: '1290 × 2796 px · 9:19,5',
+      name: 'iPhone',
+      desc: '1242 × 2688 px · 9:19,5',
     },
     'ipad-129': {
-      name: 'iPad 12,9 Zoll',
-      desc: 'Hochformat 2048 × 2732 · Querformat 2732 × 2048',
+      name: 'iPad',
+      desc: 'Hochformat 2064 × 2752 · Querformat 2752 × 2064',
     },
   },
   workspace: {

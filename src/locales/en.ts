@@ -12,7 +12,7 @@ const messages: Messages = {
   home: {
     subtitle: 'App Store screenshot generator — pick a layout · add text · drop screenshots · export',
     chooseDevice: 'Choose a device size',
-    padTip: 'iPad pages support 2732 × 2048 landscape — switch each card between portrait and landscape in the workspace',
+    padTip: 'iPad pages support 2752 × 2064 landscape — switch each card between portrait and landscape in the workspace',
     start: 'Start Creating',
     featureLocal: '100% local processing — screenshots never leave your device',
     featureResolution: 'Exports at exact App Store native resolutions',
@@ -20,12 +20,12 @@ const messages: Messages = {
   },
   devices: {
     'iphone-67': {
-      name: 'iPhone 6.7"',
-      desc: '1290 × 2796 px · 9:19.5',
+      name: 'iPhone',
+      desc: '1242 × 2688 px · 9:19.5',
     },
     'ipad-129': {
-      name: 'iPad 12.9"',
-      desc: 'Portrait 2048 × 2732 · Landscape 2732 × 2048',
+      name: 'iPad',
+      desc: 'Portrait 2064 × 2752 · Landscape 2752 × 2064',
     },
   },
   workspace: {

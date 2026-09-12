@@ -12,7 +12,7 @@ const messages: Messages = {
   home: {
     subtitle: 'App Store 스크린샷 생성기 — 레이아웃 선택 · 텍스트 입력 · 스크린샷 업로드 · 내보내기',
     chooseDevice: '기기 크기 선택',
-    padTip: 'iPad 페이지는 가로 2732 × 2048를 지원합니다. 작업 공간에서 각 카드를 언제든 가로/세로로 전환할 수 있어요',
+    padTip: 'iPad 페이지는 가로 2752 × 2064를 지원합니다. 작업 공간에서 각 카드를 언제든 가로/세로로 전환할 수 있어요',
     start: '만들기 시작',
     featureLocal: '전체 로컬 처리, 이미지 업로드 없음',
     featureResolution: 'App Store 네이티브 해상도로 정확히 내보내기',
@@ -20,12 +20,12 @@ const messages: Messages = {
   },
   devices: {
     'iphone-67': {
-      name: 'iPhone 6.7형',
-      desc: '1290 × 2796 px · 9:19.5',
+      name: 'iPhone',
+      desc: '1242 × 2688 px · 9:19.5',
     },
     'ipad-129': {
-      name: 'iPad 12.9형',
-      desc: '세로 2048 × 2732 · 가로 2732 × 2048',
+      name: 'iPad',
+      desc: '세로 2064 × 2752 · 가로 2752 × 2064',
     },
   },
   workspace: {

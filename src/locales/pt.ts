@@ -13,7 +13,7 @@ const messages: Messages = {
     subtitle:
       'Gerador de capturas para a App Store — escolha o layout · escreva o texto · envie a captura · exporte',
     chooseDevice: 'Escolha o tamanho do dispositivo',
-    padTip: 'As páginas de iPad suportam 2732 × 2048 na horizontal; no espaço de trabalho você alterna vertical/horizontal em cada cartão',
+    padTip: 'As páginas de iPad suportam 2752 × 2064 na horizontal; no espaço de trabalho você alterna vertical/horizontal em cada cartão',
     start: 'Começar',
     featureLocal: 'Processamento 100 % local, sem enviar imagens',
     featureResolution: 'Exportação exata nas resoluções nativas da App Store',
@@ -21,12 +21,12 @@ const messages: Messages = {
   },
   devices: {
     'iphone-67': {
-      name: 'iPhone 6,7 polegadas',
-      desc: '1290 × 2796 px · 9:19,5',
+      name: 'iPhone',
+      desc: '1242 × 2688 px · 9:19,5',
     },
     'ipad-129': {
-      name: 'iPad 12,9 polegadas',
-      desc: 'Vertical 2048 × 2732 · Horizontal 2732 × 2048',
+      name: 'iPad',
+      desc: 'Vertical 2064 × 2752 · Horizontal 2752 × 2064',
     },
   },
   workspace: {

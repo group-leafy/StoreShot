@@ -9,7 +9,7 @@ const messages = {
   home: {
     subtitle: 'App Store 商店图生成器 —— 选布局 · 填文字 · 传截图 · 出图',
     chooseDevice: '选择设备规格',
-    padTip: 'iPad 页面支持横屏 2732 × 2048，进入工作区后可在每张卡片上随时切换 横 / 竖',
+    padTip: 'iPad 页面支持横屏 2752 × 2064，进入工作区后可在每张卡片上随时切换 横 / 竖',
     start: '开始制作',
     featureLocal: '全程本地处理，图片不上传',
     featureResolution: '严格按 App Store 原生分辨率导出',
@@ -17,12 +17,12 @@ const messages = {
   },
   devices: {
     'iphone-67': {
-      name: 'iPhone 6.7 寸',
-      desc: '1290 × 2796 像素 · 9:19.5',
+      name: 'iPhone',
+      desc: '1242 × 2688 像素 · 9:19.5',
     },
     'ipad-129': {
-      name: 'iPad 12.9 寸',
-      desc: '竖屏 2048 × 2732 · 横屏 2732 × 2048',
+      name: 'iPad',
+      desc: '竖屏 2064 × 2752 · 横屏 2752 × 2064',
     },
   },
   workspace: {

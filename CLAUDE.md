@@ -41,7 +41,7 @@ src/
 
 ## 布局系统（最重要的不变量）
 
-- `computeLayout` 输出**原生导出坐标系**（如 iPhone 1290×2796）下的绝对 px 矩形；预览仅由外层 `.scaler` 做 `transform: scale`，被导出的 `.page` 节点本身不带 transform（`export.ts` 另有清 transform 兜底）——预览与导出因此严格一致。**改布局只改 `layout.ts` 的数学，不要在组件里补像素**
+- `computeLayout` 输出**原生导出坐标系**（如 iPhone 1242×2688）下的绝对 px 矩形；预览仅由外层 `.scaler` 做 `transform: scale`，被导出的 `.page` 节点本身不带 transform（`export.ts` 另有清 transform 兜底）——预览与导出因此严格一致。**改布局只改 `layout.ts` 的数学，不要在组件里补像素**
 - 排版沿主轴分区：文字在 上/下 时主轴为纵轴，在 左/右 时为横轴；分区比例常量（`textZoneRatio`、`SIDE_MARGIN_RATIO` 等）在 `devices.ts` 与 `layout.ts` 顶部
 - 溢出模板：截图 20%（`OVERFLOW_RATIO`）冲出页面被裁，方向永远背离文字侧
 - 伪真机边框：厚度 `framePadRatio`，**边框自截图四边向外扩张、不侵占图片内容**（截图尺寸与无边框时完全一致）；外圆角 `frameRadiusRatio`，图片圆角 = 外圆角 − 边框厚

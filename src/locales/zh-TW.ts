@@ -11,7 +11,7 @@ const messages: Messages = {
   home: {
     subtitle: 'App Store 商店圖產生器 —— 選版面 · 填文字 · 傳截圖 · 出圖',
     chooseDevice: '選擇裝置規格',
-    padTip: 'iPad 頁面支援橫向 2732 × 2048，進入工作區後可在每張卡片上隨時切換 橫 / 直',
+    padTip: 'iPad 頁面支援橫向 2752 × 2064，進入工作區後可在每張卡片上隨時切換 橫 / 直',
     start: '開始製作',
     featureLocal: '全程本機處理，圖片不上傳',
     featureResolution: '嚴格按 App Store 原生解析度輸出',
@@ -19,12 +19,12 @@ const messages: Messages = {
   },
   devices: {
     'iphone-67': {
-      name: 'iPhone 6.7 吋',
-      desc: '1290 × 2796 像素 · 9:19.5',
+      name: 'iPhone',
+      desc: '1242 × 2688 像素 · 9:19.5',
     },
     'ipad-129': {
-      name: 'iPad 12.9 吋',
-      desc: '直向 2048 × 2732 · 橫向 2732 × 2048',
+      name: 'iPad',
+      desc: '直向 2064 × 2752 · 橫向 2752 × 2064',
     },
   },
   workspace: {
