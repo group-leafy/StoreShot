@@ -9,9 +9,9 @@ export interface PageLayout {
   shot: { x: number; y: number; w: number; h: number }
   /** 截图本体（不含边框）位置与尺寸 */
   inner: { x: number; y: number; w: number; h: number }
-  /** 图片展示区域（用于占位上传提示） */
+  /** 外框（含边框）的排版盒——视觉边距的基准 */
   region: { x: number; y: number; w: number; h: number }
-  /** 边框厚度（向外扩张，不侵入截图内容） */
+  /** 边框厚度（向外扩张，不侵占截图内容） */
   pad: number
   /** 外框圆角 */
   radius: number
@@ -26,14 +26,14 @@ interface Rect {
   h: number
 }
 
-/** 溢出类模板中，被裁切的截图比例 */
-const OVERFLOW_RATIO = 0.2
-
-/** 完整显示模板：图片与页面沿横轴的边距（占横轴比例） */
+/** 完整显示：外框沿横轴两侧的边距（占横轴比例） */
 const SIDE_MARGIN_RATIO = 0.07
-/** 完整显示模板：图片与文字区间距、与页面外边距（占主轴比例） */
+/** 完整显示：文字区与外框的主轴间距（占主轴比例） */
 const TEXT_GAP_RATIO = 0.02
-const EDGE_MARGIN_RATIO = 0.045
+/** 完整显示：外框与页面外侧的主轴边距（占主轴比例） */
+const EDGE_MARGIN_RATIO = 0.05
+/** 溢出：外框沿横轴两侧的边距（占横轴比例；若为 0 则宽截图会贴边显得局促） */
+const OVERFLOW_SIDE_RATIO = 0.07
 
 /**
  * 按模板与设备规格计算像素级布局。
@@ -42,6 +42,12 @@ const EDGE_MARGIN_RATIO = 0.045
  * - 文字在上/下：主轴为纵轴（文字区横贯页面顶部或底部）
  * - 文字在左/右：主轴为横轴（文字区纵贯页面左侧或右侧）
  * 画布方向（横/竖）只决定宽高，不改变规则本身；竖屏页面仅允许上/下。
+ *
+ * 边距模型：所有比例边距一律描述「外框（含伪真机边框）到页面边缘」的可视间距，
+ * 截图本体的排版盒由外框盒四边内缩边框厚度得到，边框不再侵占边距。
+ * 溢出模板沿主轴冲出背离文字侧的页面边缘（出血量随截图纵横比变化）；
+ * 截图尺寸不足以冲出页面时（如竖屏画布传横屏截图），
+ * 退化为按完整显示的主轴边距居中，避免贴边。
  * 全部使用绝对 px 定位，保证预览与导出完全一致。
  */
 export function computeLayout(page: PageConfig, device: DeviceSpec): PageLayout {
@@ -77,76 +83,87 @@ export function computeLayout(page: PageConfig, device: DeviceSpec): PageLayout 
       ? null
       : axisRect(textAtStart ? 0 : mainLen - tzLen, tzLen, 0, crossLen)
 
-  // 图片展示区域：
+  // 外框排版盒：
   // - 纯图：整页留边居中
-  // - 完整显示：四周留内边距（沿横轴、与文字区间隙、页面外侧边距）
-  // - 溢出：占文字区以外的全部空间（裁切是设计意图）
+  // - 完整显示：横轴两侧边距 + 与文字区间隙 + 页面外侧边距
+  // - 溢出：主轴占文字区以外全部（冲出页面是设计意图），横轴两侧同样留边距
+  const sideFit = Math.round(crossLen * SIDE_MARGIN_RATIO)
+  const sideOverflow = Math.round(crossLen * OVERFLOW_SIDE_RATIO)
+  const gap = Math.round(mainLen * TEXT_GAP_RATIO)
+  const edge = Math.round(mainLen * EDGE_MARGIN_RATIO)
   let region: Rect
   if (textPos === 'none') {
     const m = Math.round(crossLen * 0.06)
     region = axisRect(m, mainLen - m * 2, m, crossLen - m * 2)
   } else if (!overflow) {
-    const side = Math.round(crossLen * SIDE_MARGIN_RATIO)
-    const gap = Math.round(mainLen * TEXT_GAP_RATIO)
-    const edge = Math.round(mainLen * EDGE_MARGIN_RATIO)
     const start = textAtStart ? tzLen + gap : edge
-    region = axisRect(start, mainLen - tzLen - gap - edge, side, crossLen - side * 2)
+    region = axisRect(start, mainLen - tzLen - gap - edge, sideFit, crossLen - sideFit * 2)
   } else {
-    region = axisRect(textAtStart ? tzLen : 0, mainLen - tzLen, 0, crossLen)
+    region = axisRect(textAtStart ? tzLen : 0, mainLen - tzLen, sideOverflow, crossLen - sideOverflow * 2)
+  }
+
+  // 截图本体排版盒 = 外框盒四边内缩 pad
+  const innerRegion: Rect = {
+    x: region.x + pad,
+    y: region.y + pad,
+    w: region.w - pad * 2,
+    h: region.h - pad * 2,
   }
 
   const img = page.image
   const ratio = img && img.height > 0 ? img.width / img.height : W / H // 无图时按画布比例占位
 
-  // 以下 outer* 为「截图本体」几何：直接按 contain / 溢出规则落位，
-  // 边框不挤占图片内容，而是从该盒四边向外扩张（见末尾 shot 计算）
+  // 以下 outer* 为「截图本体」几何；边框自该盒四边向外扩张（见末尾 shot 计算），
+  // 因此 outer 贴住 innerRegion 边缘时，外框恰好落在 region 边缘上，边距不被边框侵占
   let outerW: number
   let outerH: number
   let outerX: number
   let outerY: number
 
   if (textPos === 'none' || !overflow) {
-    // 完整显示：等比 contain 进区域
-    if (ratio >= region.w / region.h) {
-      outerW = region.w
-      outerH = region.w / ratio
+    // 完整显示：等比 contain 进截图本体排版盒
+    if (ratio >= innerRegion.w / innerRegion.h) {
+      outerW = innerRegion.w
+      outerH = innerRegion.w / ratio
     } else {
-      outerH = region.h
-      outerW = region.h * ratio
+      outerH = innerRegion.h
+      outerW = innerRegion.h * ratio
     }
-    outerX = region.x + (region.w - outerW) / 2
-    outerY = region.y + (region.h - outerH) / 2
+    outerX = innerRegion.x + (innerRegion.w - outerW) / 2
+    outerY = innerRegion.y + (innerRegion.h - outerH) / 2
   } else if (horizontal) {
-    // 溢出（文字在左/右）：截图沿横轴 80% 落在区域内，20% 溢出被页面裁切
-    outerW = region.w / (1 - OVERFLOW_RATIO)
-    outerH = outerW / ratio
-    if (outerH > region.h) {
-      // 过高截图（如横屏画布传竖屏图）：等比缩到区域高度内，改为贴住溢出侧页面边缘，
-      // 保留“冲出画布”的沉浸视觉（否则图片会浮在区域中间、溢出感丢失）
-      outerH = region.h
-      outerW = outerH * ratio
-      outerX = textAtStart ? W - outerW : 0
-    } else {
-      outerX = textAtStart ? region.x : region.x + region.w - outerW
-    }
-    outerY = region.y + (region.h - outerH) / 2
-  } else {
-    // 溢出（文字在上/下）：截图沿纵轴 80% 落在区域内，20% 溢出被页面裁切
-    outerH = region.h / (1 - OVERFLOW_RATIO)
+    // 溢出（文字在左/右）：高度占满排版盒，宽度按比例
+    outerH = innerRegion.h
     outerW = outerH * ratio
-    if (outerW > region.w) {
-      // 过宽截图（如竖屏画布传横屏图）：等比缩到页宽内，改为贴住溢出侧页面边缘
-      outerW = region.w
-      outerH = outerW / ratio
-      outerY = textAtStart ? H - outerH : 0
+    const availW = mainLen - tzLen
+    if (outerW > availW) {
+      // 超出文字区以外的可用宽度：冲出背离文字侧的页面边缘
+      outerX = textAtStart ? tzLen : mainLen - tzLen - outerW
     } else {
-      outerY = textAtStart ? region.y : region.y + region.h - outerH
+      // 宽度不足无法冲出页面（如横屏画布传竖屏截图）：
+      // 退化为完整显示的主轴边距落位并居中，避免贴边显得局促
+      const spanX = (textAtStart ? tzLen + gap : edge) + pad
+      const spanW = mainLen - tzLen - gap - edge - pad * 2
+      outerX = spanX + (spanW - outerW) / 2
     }
-    outerX = region.x + (region.w - outerW) / 2
+    outerY = innerRegion.y
+  } else {
+    // 溢出（文字在上/下）：宽度占满排版盒，高度按比例；规则同上，方向沿纵轴
+    outerW = innerRegion.w
+    outerH = outerW / ratio
+    const availH = mainLen - tzLen
+    if (outerH > availH) {
+      outerY = textAtStart ? tzLen : mainLen - tzLen - outerH
+    } else {
+      // 高度不足无法冲出页面（如竖屏画布传横屏截图）：同上退化为完整显示边距居中
+      const spanY = (textAtStart ? tzLen + gap : edge) + pad
+      const spanH = mainLen - tzLen - gap - edge - pad * 2
+      outerY = spanY + (spanH - outerH) / 2
+    }
+    outerX = innerRegion.x
   }
 
   const round = (n: number) => Math.round(n * 100) / 100
-  // 截图本体直接落位；外框四边向外扩 pad，图片内容不被边框吃掉
   const inner = { x: round(outerX), y: round(outerY), w: round(outerW), h: round(outerH) }
   const shot = {
     x: round(outerX - pad),

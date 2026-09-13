@@ -43,7 +43,9 @@ src/
 
 - `computeLayout` 输出**原生导出坐标系**（如 iPhone 1242×2688）下的绝对 px 矩形；预览仅由外层 `.scaler` 做 `transform: scale`，被导出的 `.page` 节点本身不带 transform（`export.ts` 另有清 transform 兜底）——预览与导出因此严格一致。**改布局只改 `layout.ts` 的数学，不要在组件里补像素**
 - 排版沿主轴分区：文字在 上/下 时主轴为纵轴，在 左/右 时为横轴；分区比例常量（`textZoneRatio`、`SIDE_MARGIN_RATIO` 等）在 `devices.ts` 与 `layout.ts` 顶部
-- 溢出模板：截图 20%（`OVERFLOW_RATIO`）冲出页面被裁，方向永远背离文字侧
+- 边距模型：所有比例边距（横轴两侧 7% / 文字间隙 2% / 页面外侧 5% / 溢出横轴 7%）一律以**含边框的外框**到页面边缘为视觉基准，边框厚度不侵占边距；`layout.ts` 的 `region` 即外框排版盒，截图本体排版盒由其内缩 `pad` 得到
+- 溢出模板：截图沿主轴冲出背离文字侧的页面边缘（出血量随截图纵横比变化）；截图尺寸不足以冲出页面时（如竖屏画布传横屏截图），退化为按完整显示的主轴边距居中，避免贴边
+- 布局数学与 storeshot-cli（Swift 姊妹项目）已对齐同一套边距模型，**改边距需两边同步**
 - 伪真机边框：厚度 `framePadRatio`，**边框自截图四边向外扩张、不侵占图片内容**（截图尺寸与无边框时完全一致）；外圆角 `frameRadiusRatio`，图片圆角 = 外圆角 − 边框厚
 - iPad 横竖屏是**页面级**属性：`resolveDeviceSpec` 按方向换宽高；竖屏下 左/右 模板经 `coerceTemplate` 自动映射为 上/下
 
